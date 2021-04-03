@@ -5,23 +5,31 @@
 		<title>Reporter</title>
 	</head>
 	<body>
-		<?php
-		if (isset($_GET['s'])) {
-
-			$site = $_GET['s'];
-			if ($site == "rcrms") {
-				header('Location: https://rcr.fvds.ru/rcr');
-
-			} elseif ($site == "mmc") {
-				header('Location: https://mmc.fvds.ru/mmc');
-
-			} else {
-				http_response_code(404);
+		<script type="text/javascript">
+			function getUrlVars(){
+				var vars = {};
+				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value){ vars[key] = value; });
+				return vars;
 			};
-		} else {
-			http_response_code(404);
-		};
-		?>
+
+			const vars_url = getUrlVars();
+
+			if ("s" in vars_url){
+
+				if (vars_url["s"] == "rcrms") {
+
+					location.replace("https://rcr.fvds.ru/rcr");
+				} else if (vars_url["s"] == "mmc") {
+
+					location.replace("https://mmc.fvds.ru/mmc");
+				} else {
+
+					location.replace("404/404.htm");
+				}
+			} else {
+
+				location.replace("404/404.htm");
+			};
+		</script>
 	</body>
 </html>
-
