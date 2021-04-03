@@ -12,23 +12,46 @@
 				return vars;
 			};
 
-			const vars_url = getUrlVars();
+			function ParamString(parametrs) {
+				delete parametrs["s"];
+				if ("f" in parametrs) {
+					var send_parametrs = parametrs["f"];
+					delete parametrs["f"];
+				} else {
+					var send_parametrs = "";
+				};				
+				var parametrs_list = Object.entries(parametrs);
+				var wag = 0;
+
+				while (wag != parametrs_list.length){
+					if (wag == 0) {
+						send_parametrs += ("?" + parametrs_list[wag][0] + "=" + parametrs_list[wag][1]);
+					} else {
+						send_parametrs += ("&" + parametrs_list[wag][0] + "=" + parametrs_list[wag][1]);
+					};
+					wag += 1;
+				};
+				return send_parametrs;
+			};
+
+			var vars_url = getUrlVars();
 
 			if ("s" in vars_url){
 
 				if (vars_url["s"] == "rcrms") {
-
 					location.replace("https://rcr.fvds.ru/rcr");
+
 				} else if (vars_url["s"] == "mmc") {
 
-					location.replace("https://rcr.fvds.ru/mmc");
+					location.replace("https://rcr.fvds.ru/mmc/" + ParamString(vars_url));
+
 				} else {
-
 					location.replace("404/404.htm");
-				}
-			} else {
 
+				};
+			} else {
 				location.replace("404/404.htm");
+
 			};
 		</script>
 	</body>
